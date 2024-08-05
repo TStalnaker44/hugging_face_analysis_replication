@@ -17,6 +17,16 @@ import scripts.analysis.get_license_changes as glc
 import scripts.analysis.get_naming_issues as gni
 import scripts.analysis.get_license_analysis as gla
 import scripts.analysis.find_cycles as fc
+import scripts.analysis.examine_chain_structure as ecs
+import scripts.analysis.examine_owners as eo
+import scripts.analysis.examine_declared_datasets as edd
+import scripts.analysis.get_top_n_base_models as gtnbm
+import scripts.analysis.get_top_n_datasets as gtnd
+import scripts.analysis.get_top_n_models as gtnm
+
+# INSTRUCTIONS: Set to True the tasks / analyses you wish to run
+
+# Mining / cleaning / graphing tasks:
 
 MINE_MODEL_LIST = False
 MINE_DATASET_LIST = False
@@ -37,11 +47,21 @@ CREATE_GRAPH = False
 CREATE_LINEAGES = False
 MAKE_CHAINS = False
 
+# Analyses:
+
 FIND_INTERESTING_EXAMPLES = False
 GET_LICENSE_CHANGES = False
-GET_NAME_ISSUES = True
+GET_NAME_ISSUES = False
 GET_LICENSE_ANALYSIS = False
 GET_CYCLES = False
+
+EXAMINE_CHAIN_STRUCTURE = False
+EXAMINE_OWNERS = False
+EXAMINE_DECLARED_DATASETS = False
+
+GET_TOP_N_BASE_MODELS = False
+GET_TOP_N_DATASETS = False
+GET_TOP_N_MODELS = False
 
 # Mining utilities
 if MINE_MODEL_LIST:
@@ -78,6 +98,9 @@ if CREATE_LINEAGES:
     cl.main()
 if MAKE_CHAINS:
     mkchains.main()
+
+# Data analysis
+
 if FIND_INTERESTING_EXAMPLES:
     fie.findExamples()
 if GET_LICENSE_CHANGES:
@@ -88,6 +111,20 @@ if GET_LICENSE_ANALYSIS:
     gla.main()
 if GET_CYCLES:
     fc.main()
+
+if EXAMINE_CHAIN_STRUCTURE:
+    ecs.main()
+if EXAMINE_OWNERS:
+    eo.main()
+if EXAMINE_DECLARED_DATASETS:
+    edd.main()
+if GET_TOP_N_BASE_MODELS:
+    gtnbm.main()
+if GET_TOP_N_DATASETS:
+    gtnd.main()
+if GET_TOP_N_MODELS:
+    gtnm.main()
+
     
 
 # cd.main()

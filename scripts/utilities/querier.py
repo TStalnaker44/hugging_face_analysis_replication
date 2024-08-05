@@ -125,3 +125,17 @@ class Querier():
             for architecture in model["architectures"]:
                 architectures.add(architecture)
         return sorted(list(architectures))
+    
+    def getModelById(self, modelId):
+        hits = []
+        for model in self.data:
+            if model['id'] == modelId:
+                hits.append(model)
+        if len(hits) == 1:
+            return hits[0]
+        if len(hits) > 1:
+            print("Warning: muliple models found for id " + str(modelId))
+            return hits
+        else:
+            print('No models found for id ' + str(modelId))
+            return None

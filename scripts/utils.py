@@ -1,5 +1,7 @@
 
 import glob, os, json
+import collections
+import numpy as np
 
 def loadModelData():
     path = os.path.join("data", "cleaned_data", "model_data", "*.json")
@@ -12,6 +14,11 @@ def loadModelData():
 
 def loadDatasetData():
     path = os.path.join("data", "cleaned_data", "datasets.json")
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+    
+def loadChainsData():
+    path = os.path.join("data", "cleaned_data", "chains.json")
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
@@ -41,3 +48,15 @@ def saveJsonToFile(path, data):
 def saveHTMLToFile(path, data):
     with open(path, "w", encoding="utf-8") as file:
         file.write(data)
+
+#Takes a list of numbers, computes the average value, the count of each value in the list, Q1, Q2, and Q3
+def print_stats(my_list, name = ""):
+    if name:
+        print(name + ":")
+    avg = sum(my_list) / len(my_list)
+    print(" Avg", avg)
+    my_counter = collections.Counter(my_list)
+    print(" " + str(my_counter))
+    print(" Q1", np.percentile(my_list, 25))
+    print(" Q2", np.percentile(my_list, 50))
+    print(" Q3", np.percentile(my_list, 75))
