@@ -5,7 +5,7 @@ import scripts.mining.get_model_list as gml
 import scripts.mining.model_data_miner as mdm
 import scripts.mining.get_dataset_list as gdl
 import scripts.mining.data_scraper as ds
-import scripts.data_cleaning.clean_datasets as cd
+import scripts.cleanup.clean_datasets as cd
 import scripts.cleanup.make_indices as mi
 import scripts.cleanup.format_model_data as cmd
 import scripts.cleanup.read_from_html as rf

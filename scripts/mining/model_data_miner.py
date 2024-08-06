@@ -2,7 +2,7 @@
 import requests, json, os, time, glob, re, threading
 from datetime import datetime
 from ..config import MODEL_SEPERATOR
-from ..utils import makeFolder, makeFile, saveJsonToFile, saveHTMLToFile
+from ..utils import makeFolder, makeFile, saveJsonToFile, loadRawModelData
 
 API_URL = "https://huggingface.co/api/models"
 
@@ -16,10 +16,7 @@ def loadModelList():
     return models
 
 def filterModels(models):
-    basepath = os.path.join("data", "raw_data", "api_data", "model_data_from_list")
-    path = os.path.join(basepath, "*json")
-    mined = glob.glob(path)
-    mined = [model.replace(basepath, "").replace(MODEL_SEPERATOR, "/")[1:-16] for model in mined]
+    mined = [m["id"] for m in loadRawModelData()]
     path = os.path.join("data", "raw_data", "log_files", "failed.txt")
     with open(path, "r", encoding="utf-8") as file:
         failed = [m.replace(API_URL, "")[1:] for m in file.read().split()]
@@ -102,7 +99,9 @@ def mine(models, date, lock=None, sleep_time=0.1, thread_num=0):
         mid = model['modelId']
         api_url = f"{API_URL}/{mid}"
         file_name = mid.replace("/",MODEL_SEPERATOR) + f"_{date}"
-        jsonpath = os.path.join("data", "raw_data", "api_data", "model_data_from_list", f"{file_name}.json")
+        jsonpath = os.path.join("data", "raw_data", "model_data", file_name[0])
+        makeFolder(jsonpath)
+        jsonpath = os.path.join(jsonpath, f"{file_name}.json")
         api_json = getAPIJson(api_url, lock)
         if api_json: saveJsonToFile(jsonpath, api_json)
         if i % interval == 0: time.sleep(.25)

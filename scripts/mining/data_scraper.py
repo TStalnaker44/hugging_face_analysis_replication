@@ -2,16 +2,15 @@
 import requests, os, time, glob
 from datetime import datetime
 from ..config import MODEL_SEPERATOR
-from ..utils import saveHTMLToFile
+from ..utils import saveHTMLToFile, getModelHTMLFiles, makeFolder
 
 MODEL_URL = "https://huggingface.co"
 
 def loadDone():
-    path = os.path.join("data", "raw_data", "model_page_data", "*html")
-    files = glob.glob(path)
+    files = getModelHTMLFiles()
     done = []
     for file in files:
-        file = file.replace(os.path.join("data", "raw_data", "model_page_data", ""), "")
+        file = file.split(os.sep)[-1]
         file = file.replace(MODEL_SEPERATOR, "/")
         done.append(file[:-16])
     return done
@@ -36,7 +35,9 @@ def mineWebPages(file_path):
         owner, model = fail.split("/")[-2:]
         page_url = f"{MODEL_URL}/{owner}/{model}"
         file_name = f"{owner}{MODEL_SEPERATOR}{model}_{date}"
-        html_path = os.path.join("data", "raw_data", "model_page_data", f"{file_name}.html")
+        html_path = os.path.join("data", "raw_data", "model_page_data", file_name[0])
+        makeFolder(html_path)
+        html_path = os.path.join(html_path, f"{file_name}.html")
         html_page = getPage(page_url)
         if html_page: saveHTMLToFile(html_path, html_page)
         time.sleep(2.5)
