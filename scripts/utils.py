@@ -12,6 +12,28 @@ def loadModelData():
             data.extend(json.load(f))
     return data
 
+def loadRawModelData():
+    path = os.path.join("data", "raw_data", "model_data")
+    subfolders = [item for item in os.listdir(path) 
+                  if os.path.isdir(os.path.join(path, item))]
+    data = []
+    for folder in subfolders:
+        files = glob.glob(os.path.join(path, folder, "*.json"))
+        for file in files:
+            with open(file, "r", encoding="utf-8") as f:
+                data.append(json.load(f))
+    return data
+
+def getModelHTMLFiles():
+    path = os.path.join("data", "raw_data", "model_page_data")
+    subfolders = [item for item in os.listdir(path) 
+                  if os.path.isdir(os.path.join(path, item))]
+    files = []
+    for folder in subfolders:
+        fs = glob.glob(os.path.join(path, folder, "*.html"))
+        files.extend(fs)
+    return files
+
 def loadDatasetData():
     path = os.path.join("data", "cleaned_data", "datasets.json")
     with open(path, "r", encoding="utf-8") as f:
@@ -22,13 +44,6 @@ def loadChainsData():
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-def getAllModelFiles():
-    path = os.path.join("data", "raw_data", "api_data", "model_data_from_list", "*.json")
-    list_files = glob.glob(path)
-    path = os.path.join("data", "raw_data", "api_data", "additional_model_data", "*.json")
-    additional_files = glob.glob(path)
-    return list_files + additional_files
-    
 def loadJSON(file):
     with open(file, "r", encoding="utf-8") as f:
         return json.load(f)
