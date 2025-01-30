@@ -1,9 +1,9 @@
-# The Promise and Perils of Managing the ML Supply Chain in the Era of Software 2.0: Lessons Learned from Hugging Face
+# The ML Supply Chain in the Era of Software 2.0: Lessons Learned from Hugging Face
 
 **Note:** Due to the sheer volume of data to be shared, we have compressed many of the directories herein.  Some of the scripts require that these zip folders be extracted before running properly.
 
 ## Repository Structure
-Our replication package is broken into two main parts: our data and the scripts used to mined, process, and analyze that data.  We more fully describe each of these pieces below.
+Our replication package is broken into two main parts: our data and the scripts used to mine, process, and analyze that data.  We more fully describe each of these pieces below.
 
 ## Data
 Do to the large quantity of files, we have opted to provide most data in a zip file format.  The data can be broken into three main categories: raw data (what was directly mined from Hugging Face), cleaned data (a more concise, normalized, and usable version of the raw data), and data for analysis (produced graphs, spreadsheets, and the like).  We provide more information on each categories files and structure below.
@@ -84,3 +84,6 @@ The remaining scripts created and used in this research can be found in the `scr
 Additionally, there are also two files at the top-level of the `scripts` directory:
 - `config.py`: contains configuration information for the repository, notably the MODEL_SEPARATOR variable.
 - `utils.py`: script that contain functions commonly used throughout the repository.
+
+## Other Files
+We provide image attribution in `image-credits.csv`.
