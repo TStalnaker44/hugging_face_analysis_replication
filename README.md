@@ -86,4 +86,4 @@ Additionally, there are also two files at the top-level of the `scripts` directo
 - `utils.py`: script that contain functions commonly used throughout the repository.
 
 ## Other Files
-We provide image attribution in `image-credits.csv`.
+We provide image attribution in `image_credits.csv`.
